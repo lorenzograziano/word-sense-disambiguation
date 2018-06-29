@@ -6,6 +6,9 @@ from functools import reduce
 
 
 def lesk_extended(index_word, context):
+
+    # Performing Lesk-Extended Algorithm
+
     tagged_context = preprocessing(context)
     word_pos = tagged_context[index_word]
     wnl = WordNetLemmatizer()
@@ -41,7 +44,11 @@ def lesk(word_to_dis, context):
             best_score = total_score
     if best_score == 0.0 and len(synsets) > 0:
             best_syn = synsets[0]
-    return best_syn
+    try:
+        best = best_syn.name()
+    except AttributeError:
+        best = None
+    return best
 
 
 def preprocessing(sentence):
